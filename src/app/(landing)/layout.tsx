@@ -9,7 +9,7 @@ export default function MainLayout({
   children: React.ReactNode;
 }) {
   return (
-    <main className="h-screen w-full">
+    <main className="min-h-screen w-full">
       <Navbar />
       <div className="flex h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
         {children}
