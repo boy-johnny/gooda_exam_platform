@@ -7,7 +7,7 @@ import { SunIcon } from "lucide-react";
 
 export const Navbar = () => {
   return (
-    <nav className="h-16 bg-background border-b">
+    <nav className="h-16 bg-background shadow-sm shadow-muted-foreground">
       <div className="h-full flex items-center justify-between max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center gap-8">
           <Logo />
