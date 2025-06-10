@@ -73,8 +73,8 @@ export function CommandPalette({
           <Combobox
             onChange={(item) => {
               if (item) {
-                onSelect?.(item);
-                window.location = item.url;
+                onSelect?.(item as Person);
+                window.location.href = (item as Person).url;
               }
             }}
           >
