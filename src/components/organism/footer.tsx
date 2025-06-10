@@ -6,7 +6,7 @@ interface FooterProps {
   socialLinks: Array<{
     name: string;
     href: string;
-    icon: (props: any) => React.ReactNode;
+    icon: React.ReactNode;
   }>;
   copyrightText: string;
 }
@@ -41,7 +41,7 @@ export default function Footer({
               className="text-gray-600 hover:text-gray-800"
             >
               <span className="sr-only">{item.name}</span>
-              <item.icon aria-hidden="true" className="size-6" />
+              {item.icon}
             </a>
           ))}
         </div>

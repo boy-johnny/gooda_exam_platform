@@ -1,19 +1,7 @@
-// import {
-//   CalendarIcon,
-//   ChartPieIcon,
-//   DocumentDuplicateIcon,
-//   FolderIcon,
-//   HomeIcon,
-//   UsersIcon,
-// } from "@heroicons/react/24/outline";
-
-/**
- * 導航項目介面
- */
 interface NavigationItem {
   name: string;
   href: string;
-  icon: (props: any) => React.ReactNode;
+  icon: React.ReactNode;
   current: boolean;
 }
 
@@ -51,15 +39,7 @@ export function VerticalNavigation({ navigation }: VerticalNavigationProps) {
                 "group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold"
               )}
             >
-              <item.icon
-                aria-hidden="true"
-                className={classNames(
-                  item.current
-                    ? "text-indigo-600"
-                    : "text-gray-400 group-hover:text-indigo-600",
-                  "size-6 shrink-0"
-                )}
-              />
+              {item.icon}
               {item.name}
             </a>
           </li>
