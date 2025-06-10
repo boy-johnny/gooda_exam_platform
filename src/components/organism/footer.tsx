@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 interface FooterProps {
   mainLinks: Array<{
     name: string;
@@ -24,25 +26,25 @@ export default function Footer({
           className="-mb-6 flex flex-wrap justify-center gap-x-12 gap-y-3 text-sm/6"
         >
           {mainLinks.map((item) => (
-            <a
+            <Link
               key={item.name}
               href={item.href}
               className="text-gray-600 hover:text-gray-900"
             >
               {item.name}
-            </a>
+            </Link>
           ))}
         </nav>
         <div className="mt-16 flex justify-center gap-x-10">
           {socialLinks.map((item) => (
-            <a
+            <Link
               key={item.name}
               href={item.href}
               className="text-gray-600 hover:text-gray-800"
             >
               <span className="sr-only">{item.name}</span>
               {item.icon}
-            </a>
+            </Link>
           ))}
         </div>
         <p className="mt-10 text-center text-sm/6 text-gray-600">

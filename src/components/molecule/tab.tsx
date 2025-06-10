@@ -1,4 +1,5 @@
 import { ChevronDownIcon } from "@heroicons/react/16/solid";
+import Link from "next/link";
 
 interface TabItem {
   name: string;
@@ -52,7 +53,7 @@ export function Tab({ tabs, onTabChange }: TabProps) {
         <div className="border-b border-gray-200">
           <nav aria-label="Tabs" className="-mb-px flex">
             {tabs.map((tab) => (
-              <a
+              <Link
                 key={tab.name}
                 href={tab.href}
                 onClick={(e) => {
@@ -68,7 +69,7 @@ export function Tab({ tabs, onTabChange }: TabProps) {
                 )}
               >
                 {tab.name}
-              </a>
+              </Link>
             ))}
           </nav>
         </div>

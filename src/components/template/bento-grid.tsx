@@ -1,3 +1,4 @@
+import Image from "next/image";
 /**
  * BentoGrid 卡片項目介面
  */
@@ -77,7 +78,7 @@ export function BentoGrid({ title, subtitle, items }: BentoGridProps) {
                     : ""
                 }`}
               >
-                <img
+                <Image
                   alt=""
                   src={item.image}
                   className={`h-80 object-cover ${

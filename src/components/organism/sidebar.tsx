@@ -1,3 +1,6 @@
+import Link from "next/link";
+import Image from "next/image";
+
 interface NavigationItem {
   name: string;
   href: string;
@@ -59,7 +62,7 @@ export default function Sidebar({
   return (
     <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6">
       <div className="flex h-16 shrink-0 items-center">
-        <img alt={companyName} src={logoSrc} className="h-8 w-auto" />
+        <Image alt={companyName} src={logoSrc} className="h-8 w-auto" />
       </div>
       <nav className="flex flex-1 flex-col">
         <ul role="list" className="flex flex-1 flex-col gap-y-7">
@@ -67,7 +70,7 @@ export default function Sidebar({
             <ul role="list" className="-mx-2 space-y-1">
               {navigation.map((item) => (
                 <li key={item.name}>
-                  <a
+                  <Link
                     href={item.href}
                     className={classNames(
                       item.current
@@ -86,7 +89,7 @@ export default function Sidebar({
                         {item.count}
                       </span>
                     ) : null}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -98,7 +101,7 @@ export default function Sidebar({
             <ul role="list" className="-mx-2 mt-2 space-y-1">
               {teams.map((team) => (
                 <li key={team.name}>
-                  <a
+                  <Link
                     href={team.href}
                     className={classNames(
                       team.current
@@ -118,24 +121,24 @@ export default function Sidebar({
                       {team.initial}
                     </span>
                     <span className="truncate">{team.name}</span>
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
           </li>
           <li className="-mx-6 mt-auto">
-            <a
+            <Link
               href="#"
               className="flex items-center gap-x-4 px-6 py-3 text-sm/6 font-semibold text-gray-900 hover:bg-gray-50"
             >
-              <img
+              <Image
                 alt=""
                 src={userAvatar}
                 className="size-8 rounded-full bg-gray-50"
               />
               <span className="sr-only">Your profile</span>
               <span aria-hidden="true">{userName}</span>
-            </a>
+            </Link>
           </li>
         </ul>
       </nav>
