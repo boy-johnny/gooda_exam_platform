@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import { Noto_Sans_TC } from "next/font/google";
+import "@/app/globals.css";
 
 const notoSansTC = Noto_Sans_TC({ subsets: ["latin"] });
 
