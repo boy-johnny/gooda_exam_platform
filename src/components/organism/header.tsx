@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Dialog, DialogPanel } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
+import Image from "next/image";
 
 interface NavigationItem {
   name: string;
@@ -51,7 +52,7 @@ export function Header({
         <div className="flex items-center gap-x-12">
           <Link href="#" className="-m-1.5 p-1.5">
             <span className="sr-only">{companyName}</span>
-            <img alt={companyName} src={logoSrc} className="h-8 w-auto" />
+            <Image alt={companyName} src={logoSrc} className="h-8 w-auto" />
           </Link>
           <div className="hidden lg:flex lg:gap-x-12">
             {navigation.map((item) => (
@@ -94,7 +95,7 @@ export function Header({
           <div className="flex items-center justify-between">
             <Link href="#" className="-m-1.5 p-1.5">
               <span className="sr-only">Your Company</span>
-              <img
+              <Image
                 alt=""
                 src="/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
                 className="h-8 w-auto"

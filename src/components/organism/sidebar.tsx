@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 interface NavigationItem {
   name: string;
@@ -61,7 +62,7 @@ export default function Sidebar({
   return (
     <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6">
       <div className="flex h-16 shrink-0 items-center">
-        <img alt={companyName} src={logoSrc} className="h-8 w-auto" />
+        <Image alt={companyName} src={logoSrc} className="h-8 w-auto" />
       </div>
       <nav className="flex flex-1 flex-col">
         <ul role="list" className="flex flex-1 flex-col gap-y-7">
@@ -130,7 +131,7 @@ export default function Sidebar({
               href="#"
               className="flex items-center gap-x-4 px-6 py-3 text-sm/6 font-semibold text-gray-900 hover:bg-gray-50"
             >
-              <img
+              <Image
                 alt=""
                 src={userAvatar}
                 className="size-8 rounded-full bg-gray-50"

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ChevronRightIcon } from "@heroicons/react/20/solid";
 
 /**
@@ -91,7 +92,7 @@ export function Hero({
       </svg>
       <div className="mx-auto max-w-7xl px-6 pt-10 pb-24 sm:pb-32 lg:flex lg:px-8 lg:py-40">
         <div className="mx-auto max-w-2xl lg:mx-0 lg:shrink-0 lg:pt-8">
-          <img alt="Your Company" src={logoImage} className="h-11" />
+          <Image alt="Your Company" src={logoImage} className="h-11" />
           <div className="mt-24 sm:mt-32 lg:mt-16">
             <Link href="#" className="inline-flex space-x-6">
               <span className="rounded-full bg-indigo-600/10 px-3 py-1 text-sm/6 font-semibold text-indigo-600 ring-1 ring-indigo-600/10 ring-inset">
@@ -132,7 +133,7 @@ export function Hero({
         <div className="mx-auto mt-16 flex max-w-2xl sm:mt-24 lg:mt-0 lg:mr-0 lg:ml-10 lg:max-w-none lg:flex-none xl:ml-32">
           <div className="max-w-3xl flex-none sm:max-w-5xl lg:max-w-none">
             <div className="-m-2 rounded-xl bg-gray-900/5 p-2 ring-1 ring-gray-900/10 ring-inset lg:-m-4 lg:rounded-2xl lg:p-4">
-              <img
+              <Image
                 alt="App screenshot"
                 src={screenshotImage}
                 width={2432}
