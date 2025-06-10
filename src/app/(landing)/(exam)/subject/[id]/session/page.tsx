@@ -1,5 +1,4 @@
 import SessionTable from "@/app/(landing)/(exam)/_components/session-table";
-import SessionTabs from "@/app/(landing)/(exam)/_components/session-tabs";
 
 export default function SessionPage() {
   return (
