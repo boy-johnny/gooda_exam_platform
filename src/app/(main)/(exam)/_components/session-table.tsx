@@ -13,24 +13,22 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+
 import {
   ArrowUpDown,
   ChevronDown,
   Columns3,
-  MoreHorizontal,
   RefreshCcw,
   SearchIcon,
 } from "lucide-react";
 import * as React from "react";
 
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
@@ -45,132 +43,102 @@ import {
 } from "@/components/ui/table";
 import SessionTabs from "./session-tabs";
 
-const data: Payment[] = [
+const data: Test[] = [
   {
-    id: "m5gr84i9",
-    amount: 316,
-    status: "success",
-    email: "ken99@yahoo.com",
+    id: "3e237b9a-6061-40cd-9b25-ef092c60fc84",
+    subject_id: "d43c59c4-e0f4-42e6-b6e4-52e55f0d6647",
+    name: "113-1-生物化學",
+    year: 113,
+    period: 1,
+    question_count: 80, // Assuming a value for display
   },
   {
-    id: "3u1reuv4",
-    amount: 242,
-    status: "success",
-    email: "Abe45@gmail.com",
+    id: "697d9a2e-51a5-411a-bb16-43bd69f6e26a",
+    subject_id: "d43c59c4-e0f4-42e6-b6e4-52e55f0d6647",
+    name: "112-2-生物化學",
+    year: 112,
+    period: 2,
+    question_count: 80,
   },
   {
-    id: "derv1ws0",
-    amount: 837,
-    status: "processing",
-    email: "Monserrat44@gmail.com",
-  },
-  {
-    id: "5kma53ae",
-    amount: 874,
-    status: "success",
-    email: "Silas22@gmail.com",
-  },
-  {
-    id: "bhqecj4p",
-    amount: 721,
-    status: "failed",
-    email: "carmella@hotmail.com",
+    id: "b498f824-530d-4e60-94d0-d49fe1ea05e6",
+    subject_id: "a1b2c3d4-e5f6-7890-ghij-klemno123456", // Different subject
+    name: "112-1-微生物學",
+    year: 112,
+    period: 1,
+    question_count: 80,
   },
 ];
 
-export type Payment = {
-  id: string;
-  amount: number;
-  status: "pending" | "processing" | "success" | "failed";
-  email: string;
+export type Test = {
+  id: string; // e.g., "3e237b9a-6061-40cd-9b25-ef092c60fc84"
+  subject_id: string; // e.g., "d43c59c4-e0f4-42e6-b6e4-52e55f0d6647"
+  name: string; // e.g., "113-2-生物化學"
+  year: number; // e.g., 113
+  period: number; // e.g., 1
+  question_count?: number; // Optional, as it can be null
 };
 
-export const columns: ColumnDef<Payment>[] = [
+export const columns: ColumnDef<Test>[] = [
   {
-    id: "select",
-    header: ({ table }) => (
-      <Checkbox
-        checked={
-          table.getIsAllPageRowsSelected() ||
-          (table.getIsSomePageRowsSelected() && "indeterminate")
-        }
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
-      />
+    accessorKey: "year",
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+      >
+        年度
+        <ArrowUpDown className="ml-2 h-4 w-4" />
+      </Button>
+    ),
+    cell: ({ row }) => <div>{row.getValue("year")}</div>,
+  },
+  {
+    accessorKey: "period",
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+      >
+        期數
+        <ArrowUpDown className="ml-2 h-4 w-4" />
+      </Button>
     ),
     cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
-      />
+      <div className="text-center">{row.getValue("period")}</div>
     ),
-    enableSorting: false,
-    enableHiding: false,
   },
   {
-    accessorKey: "status",
-    header: "Status",
+    accessorKey: "name",
+    header: "測驗名稱",
     cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("status")}</div>
+      <div className="font-medium">{row.getValue("name")}</div>
     ),
-  },
-  {
-    accessorKey: "email",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Email
-          <ArrowUpDown />
-        </Button>
-      );
-    },
-    cell: ({ row }) => <div className="lowercase">{row.getValue("email")}</div>,
-  },
-  {
-    accessorKey: "amount",
-    header: () => <div className="text-right">Amount</div>,
-    cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("amount"));
-
-      // Format the amount as a dollar amount
-      const formatted = new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
-      }).format(amount);
-
-      return <div className="text-right font-medium">{formatted}</div>;
-    },
   },
   {
     id: "actions",
-    enableHiding: false,
+    header: () => <div className="text-right pr-4">操作</div>,
     cell: ({ row }) => {
-      const payment = row.original;
+      const test = row.original;
 
       return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal />
+        <div className="flex justify-end gap-2">
+          <Link href={`/test/${test.id}?mode=simulation`}>
+            <Button variant="default" size="sm">
+              模擬測驗
             </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(payment.id)}
-            >
-              Copy payment ID
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>View customer</DropdownMenuItem>
-            <DropdownMenuItem>View payment details</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+          </Link>
+          <Link href={`/test/${test.id}?mode=practice`}>
+            <Button variant="outline" size="sm">
+              練習模式
+            </Button>
+          </Link>
+          <Link href={`/test/${test.id}?mode=read`}>
+            <Button variant="ghost" size="sm">
+              閱讀模式
+            </Button>
+          </Link>
+        </div>
       );
     },
   },
@@ -184,7 +152,6 @@ export default function SessionTable() {
   );
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
-  const [rowSelection, setRowSelection] = React.useState({});
 
   const table = useReactTable({
     data,
@@ -196,12 +163,11 @@ export default function SessionTable() {
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
-    onRowSelectionChange: setRowSelection,
+
     state: {
       sorting,
       columnFilters,
       columnVisibility,
-      rowSelection,
     },
   });
 
@@ -211,10 +177,10 @@ export default function SessionTable() {
         <SessionTabs />
 
         <Input
-          placeholder="Filter emails..."
-          value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
+          placeholder="搜尋測驗名稱..."
+          value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
-            table.getColumn("email")?.setFilterValue(event.target.value)
+            table.getColumn("name")?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
         />
@@ -308,23 +274,6 @@ export default function SessionTable() {
                       )}
                     </TableCell>
                   ))}
-                  <TableCell className="flex justify-end gap-4">
-                    <Link href={`/subject/${row.original.id}/session`}>
-                      <Button variant="default" size="sm">
-                        模擬測驗
-                      </Button>
-                    </Link>
-                    <Link href={`/subject/${row.original.id}/practice`}>
-                      <Button variant="outline" size="sm">
-                        練習模式
-                      </Button>
-                    </Link>
-                    <Link href={`/subject/${row.original.id}/practice`}>
-                      <Button variant="ghost" size="sm">
-                        閱讀模式
-                      </Button>
-                    </Link>
-                  </TableCell>
                 </TableRow>
               ))
             ) : (
@@ -341,10 +290,6 @@ export default function SessionTable() {
         </Table>
       </div>
       <div className="flex items-center justify-end space-x-2 py-4">
-        <div className="flex-1 text-sm text-muted-foreground">
-          {table.getFilteredSelectedRowModel().rows.length} of{" "}
-          {table.getFilteredRowModel().rows.length} row(s) selected.
-        </div>
         <div className="space-x-2">
           <Button
             variant="outline"
