@@ -57,13 +57,10 @@ export default function SubjectPage() {
         </h2>
         <div className="mt-8 w-full mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-8">
           {features.map((feature) => (
-            <Link href={`/subject/${feature.title}`}>
-              <Card
-                key={feature.title}
-                className="flex flex-col border rounded-xl overflow-hidden shadow-none"
-              >
+            <Link href={`/subject/${feature.title}`} key={feature.title}>
+              <Card className="flex flex-col border rounded-xl overflow-hidden shadow-none">
                 <CardHeader>
-                  <feature.icon />
+                  <feature.icon className="w-10 h-10" />
                   <h4 className="!mt-3 text-xl font-semibold tracking-tight">
                     {feature.title}
                   </h4>
