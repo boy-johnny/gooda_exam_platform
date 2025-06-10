@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 interface NavigationItem {
   name: string;
   href: string;
@@ -67,7 +69,7 @@ export default function Sidebar({
             <ul role="list" className="-mx-2 space-y-1">
               {navigation.map((item) => (
                 <li key={item.name}>
-                  <a
+                  <Link
                     href={item.href}
                     className={classNames(
                       item.current
@@ -86,7 +88,7 @@ export default function Sidebar({
                         {item.count}
                       </span>
                     ) : null}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -98,7 +100,7 @@ export default function Sidebar({
             <ul role="list" className="-mx-2 mt-2 space-y-1">
               {teams.map((team) => (
                 <li key={team.name}>
-                  <a
+                  <Link
                     href={team.href}
                     className={classNames(
                       team.current
@@ -118,13 +120,13 @@ export default function Sidebar({
                       {team.initial}
                     </span>
                     <span className="truncate">{team.name}</span>
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
           </li>
           <li className="-mx-6 mt-auto">
-            <a
+            <Link
               href="#"
               className="flex items-center gap-x-4 px-6 py-3 text-sm/6 font-semibold text-gray-900 hover:bg-gray-50"
             >
@@ -135,7 +137,7 @@ export default function Sidebar({
               />
               <span className="sr-only">Your profile</span>
               <span aria-hidden="true">{userName}</span>
-            </a>
+            </Link>
           </li>
         </ul>
       </nav>

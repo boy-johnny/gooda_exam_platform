@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { ChevronRightIcon } from "@heroicons/react/20/solid";
 
 /**
@@ -92,7 +93,7 @@ export function Hero({
         <div className="mx-auto max-w-2xl lg:mx-0 lg:shrink-0 lg:pt-8">
           <img alt="Your Company" src={logoImage} className="h-11" />
           <div className="mt-24 sm:mt-32 lg:mt-16">
-            <a href="#" className="inline-flex space-x-6">
+            <Link href="#" className="inline-flex space-x-6">
               <span className="rounded-full bg-indigo-600/10 px-3 py-1 text-sm/6 font-semibold text-indigo-600 ring-1 ring-indigo-600/10 ring-inset">
                 {newFeatureText}
               </span>
@@ -103,7 +104,7 @@ export function Hero({
                   className="size-5 text-gray-400"
                 />
               </span>
-            </a>
+            </Link>
           </div>
           <h1 className="mt-10 text-5xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-7xl">
             {title}
@@ -112,20 +113,20 @@ export function Hero({
             {description}
           </p>
           <div className="mt-10 flex items-center gap-x-6">
-            <a
+            <Link
               href="#"
               onClick={onPrimaryButtonClick}
               className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
               {primaryButtonText}
-            </a>
-            <a
+            </Link>
+            <Link
               href="#"
               onClick={onSecondaryButtonClick}
               className="text-sm/6 font-semibold text-gray-900"
             >
               {secondaryButtonText} <span aria-hidden="true">→</span>
-            </a>
+            </Link>
           </div>
         </div>
         <div className="mx-auto mt-16 flex max-w-2xl sm:mt-24 lg:mt-0 lg:mr-0 lg:ml-10 lg:max-w-none lg:flex-none xl:ml-32">

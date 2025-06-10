@@ -1,4 +1,5 @@
 import { ChevronRightIcon, HomeIcon } from "@heroicons/react/20/solid";
+import Link from "next/link";
 
 interface Page {
   name: string;
@@ -22,10 +23,10 @@ export function Breadcrumb({ pages, homeHref = "#" }: BreadcrumbProps) {
       <ol role="list" className="flex items-center space-x-4">
         <li>
           <div>
-            <a href={homeHref} className="text-gray-400 hover:text-gray-500">
+            <Link href={homeHref} className="text-gray-400 hover:text-gray-500">
               <HomeIcon aria-hidden="true" className="size-5 shrink-0" />
               <span className="sr-only">Home</span>
-            </a>
+            </Link>
           </div>
         </li>
         {pages.map((page) => (
@@ -35,13 +36,13 @@ export function Breadcrumb({ pages, homeHref = "#" }: BreadcrumbProps) {
                 aria-hidden="true"
                 className="size-5 shrink-0 text-gray-400"
               />
-              <a
+              <Link
                 href={page.href}
                 aria-current={page.current ? "page" : undefined}
                 className="ml-4 text-sm font-medium text-gray-500 hover:text-gray-700"
               >
                 {page.name}
-              </a>
+              </Link>
             </div>
           </li>
         ))}

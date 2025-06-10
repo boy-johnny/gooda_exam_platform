@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 interface NavigationItem {
   name: string;
   href: string;
@@ -30,7 +32,7 @@ export function VerticalNavigation({ navigation }: VerticalNavigationProps) {
       <ul role="list" className="-mx-2 space-y-1">
         {navigation.map((item) => (
           <li key={item.name}>
-            <a
+            <Link
               href={item.href}
               className={classNames(
                 item.current
@@ -41,7 +43,7 @@ export function VerticalNavigation({ navigation }: VerticalNavigationProps) {
             >
               {item.icon}
               {item.name}
-            </a>
+            </Link>
           </li>
         ))}
       </ul>

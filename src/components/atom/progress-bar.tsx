@@ -2,6 +2,7 @@ import {
   ArrowLongLeftIcon,
   ArrowLongRightIcon,
 } from "@heroicons/react/20/solid";
+import Link from "next/link";
 
 interface ProgressBarProps {
   currentPage: number;
@@ -30,7 +31,7 @@ export function ProgressBar({
     if (totalPages <= maxVisiblePages) {
       for (let i = 1; i <= totalPages; i++) {
         pages.push(
-          <a
+          <Link
             key={i}
             href="#"
             onClick={(e) => {
@@ -45,13 +46,13 @@ export function ProgressBar({
             }`}
           >
             {i}
-          </a>
+          </Link>
         );
       }
     } else {
       // Always show first page
       pages.push(
-        <a
+        <Link
           key={1}
           href="#"
           onClick={(e) => {
@@ -61,7 +62,7 @@ export function ProgressBar({
           className="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
         >
           1
-        </a>
+        </Link>
       );
 
       if (showEllipsis && currentPage > 3) {
@@ -82,7 +83,7 @@ export function ProgressBar({
         i++
       ) {
         pages.push(
-          <a
+          <Link
             key={i}
             href="#"
             onClick={(e) => {
@@ -97,7 +98,7 @@ export function ProgressBar({
             }`}
           >
             {i}
-          </a>
+          </Link>
         );
       }
 
@@ -114,7 +115,7 @@ export function ProgressBar({
 
       // Always show last page
       pages.push(
-        <a
+        <Link
           key={totalPages}
           href="#"
           onClick={(e) => {
@@ -124,7 +125,7 @@ export function ProgressBar({
           className="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
         >
           {totalPages}
-        </a>
+        </Link>
       );
     }
 
@@ -134,7 +135,7 @@ export function ProgressBar({
   return (
     <nav className="flex items-center justify-between border-t border-gray-200 px-4 sm:px-0">
       <div className="-mt-px flex w-0 flex-1">
-        <a
+        <Link
           href="#"
           onClick={(e) => {
             e.preventDefault();
@@ -151,11 +152,11 @@ export function ProgressBar({
             className="mr-3 size-5 text-gray-400"
           />
           Previous
-        </a>
+        </Link>
       </div>
       <div className="hidden md:-mt-px md:flex">{renderPageNumbers()}</div>
       <div className="-mt-px flex w-0 flex-1 justify-end">
-        <a
+        <Link
           href="#"
           onClick={(e) => {
             e.preventDefault();
@@ -172,7 +173,7 @@ export function ProgressBar({
             aria-hidden="true"
             className="ml-3 size-5 text-gray-400"
           />
-        </a>
+        </Link>
       </div>
     </nav>
   );
