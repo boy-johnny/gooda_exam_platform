@@ -1,7 +1,8 @@
+import "@/app/globals.css";
 import { Metadata } from "next";
 import { Noto_Sans_TC } from "next/font/google";
-import "@/app/globals.css";
 import { Navbar } from "./_components/navbar/navbar";
+import Footer from "./_components/footer/footer";
 
 const notoSansTC = Noto_Sans_TC({ subsets: ["latin"] });
 
@@ -37,6 +38,7 @@ export default function MainLayout({
           <div className="flex h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
             {children}
           </div>
+          <Footer />
         </main>
       </body>
     </html>
