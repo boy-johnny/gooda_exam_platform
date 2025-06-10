@@ -5,7 +5,6 @@ import {
   ColumnDef,
   ColumnFiltersState,
   SortingState,
-  VisibilityState,
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
@@ -14,24 +13,10 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 
-import {
-  ArrowUpDown,
-  ChevronDown,
-  Columns3,
-  RefreshCcw,
-  SearchIcon,
-} from "lucide-react";
+import { ArrowUpDown } from "lucide-react";
 import * as React from "react";
 
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import {
   Table,
@@ -145,13 +130,10 @@ export const columns: ColumnDef<Test>[] = [
 ];
 
 export default function SessionTable() {
-  const [searchQuery, setSearchQuery] = React.useState<string>();
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
   );
-  const [columnVisibility, setColumnVisibility] =
-    React.useState<VisibilityState>({});
 
   const table = useReactTable({
     data,
@@ -162,18 +144,15 @@ export default function SessionTable() {
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
-    onColumnVisibilityChange: setColumnVisibility,
-
     state: {
       sorting,
       columnFilters,
-      columnVisibility,
     },
   });
 
   return (
     <div className="w-full">
-      <div className="flex items-center gap-2 py-4">
+      <div className="flex justify-between items-center gap-2 py-4">
         <SessionTabs />
 
         <Input
@@ -184,60 +163,6 @@ export default function SessionTable() {
           }
           className="max-w-sm"
         />
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto">
-              <Columns3 /> 欄位 <ChevronDown className="ml-3" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <div className="relative">
-              <Input
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-8"
-                placeholder="Search"
-                onKeyDown={(e) => e.stopPropagation()}
-              />
-              <SearchIcon className="absolute inset-y-0 my-auto left-2 h-4 w-4" />
-            </div>
-            <DropdownMenuSeparator />
-            {table
-              .getAllColumns()
-              .filter((column) => column.getCanHide())
-              .map((column) => {
-                if (
-                  searchQuery &&
-                  !column.id.toLowerCase().includes(searchQuery.toLowerCase())
-                ) {
-                  return null;
-                }
-
-                return (
-                  <DropdownMenuCheckboxItem
-                    key={column.id}
-                    className="capitalize"
-                    checked={column.getIsVisible()}
-                    onCheckedChange={(value) =>
-                      column.toggleVisibility(!!value)
-                    }
-                    onSelect={(e) => e.preventDefault()}
-                  >
-                    {column.id}
-                  </DropdownMenuCheckboxItem>
-                );
-              })}
-            <DropdownMenuSeparator />
-            <DropdownMenuItem
-              onClick={() => {
-                table.resetColumnVisibility();
-                setSearchQuery("");
-              }}
-            >
-              <RefreshCcw /> Reset
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
       </div>
       <div className="rounded-md border">
         <Table>
