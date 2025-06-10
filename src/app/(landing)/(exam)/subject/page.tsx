@@ -7,6 +7,7 @@ import {
   Users,
   Zap,
 } from "lucide-react";
+import Link from "next/link";
 
 const features = [
   {
@@ -56,23 +57,25 @@ export default function SubjectPage() {
         </h2>
         <div className="mt-8 w-full mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-8">
           {features.map((feature) => (
-            <Card
-              key={feature.title}
-              className="flex flex-col border rounded-xl overflow-hidden shadow-none"
-            >
-              <CardHeader>
-                <feature.icon />
-                <h4 className="!mt-3 text-xl font-semibold tracking-tight">
-                  {feature.title}
-                </h4>
-                <p className="mt-1 text-muted-foreground text-[17px]">
-                  {feature.description}
-                </p>
-              </CardHeader>
-              <CardContent className="mt-auto px-0 pb-0 ">
-                <div className="bg-muted h-40 ml-6 rounded-tl-xl" />
-              </CardContent>
-            </Card>
+            <Link href={`/subject/${feature.title}`}>
+              <Card
+                key={feature.title}
+                className="flex flex-col border rounded-xl overflow-hidden shadow-none"
+              >
+                <CardHeader>
+                  <feature.icon />
+                  <h4 className="!mt-3 text-xl font-semibold tracking-tight">
+                    {feature.title}
+                  </h4>
+                  <p className="mt-1 text-muted-foreground text-[17px]">
+                    {feature.description}
+                  </p>
+                </CardHeader>
+                <CardContent className="mt-auto px-0 pb-0 ">
+                  <div className="bg-muted h-40 ml-6 rounded-tl-xl" />
+                </CardContent>
+              </Card>
+            </Link>
           ))}
         </div>
       </div>
