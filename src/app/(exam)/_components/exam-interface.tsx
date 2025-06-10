@@ -263,7 +263,7 @@ export function ExamInterface() {
                     width: "100%",
                     height: `${virtualItem.size}px`,
                     transform: `translateY(${virtualItem.start}px)`,
-                    padding: "12px 8px", // <--- 修改處：增加了垂直 padding 來製造間距
+                    padding: "12px 8px",
                   }}
                 >
                   <Card>
