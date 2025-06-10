@@ -28,7 +28,7 @@ export default function SessionTabs() {
           </TabsTrigger>
         ))}
       </TabsList>
-      {tabs.map((tab) => (
+      {/* {tabs.map((tab) => (
         <TabsContent key={tab.value} value={tab.value}>
           <div className="h-10 flex items-center justify-between border gap-2 rounded-md pl-3 pr-1.5">
             <code className="text-[13px]">{tab.content}</code>
@@ -37,7 +37,7 @@ export default function SessionTabs() {
             </Button>
           </div>
         </TabsContent>
-      ))}
+      ))} */}
     </Tabs>
   );
 }
