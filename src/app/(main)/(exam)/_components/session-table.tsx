@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import * as React from "react";
+import { useDebounce } from "@/hooks/use-debounce";
 
 import {
   ColumnDef,
@@ -140,6 +141,7 @@ export const yearColumns: ColumnDef<YearlyExamGroup>[] = [
     cell: ({ row }) => (
       <div className="text-center">{row.getValue("subjectCount")}</div>
     ),
+    enableGlobalFilter: false,
   },
   {
     id: "actions",
@@ -259,6 +261,11 @@ export default function SessionTable({
     return initialTests;
   }, [activeTab, initialTests, initialChapters]);
 
+  //    - globalFilter: 用於即時更新 Input UI
+  //    - debouncedGlobalFilter: 用於觸發實際的表格篩選
+  const [globalFilter, setGlobalFilter] = React.useState("");
+  const debouncedGlobalFilter = useDebounce(globalFilter, 300); // 延遲 300 毫秒
+
   const table = useReactTable({
     data: tableData as Test[],
     columns: columns as ColumnDef<Test>[],
@@ -267,11 +274,14 @@ export default function SessionTable({
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
     state: {
       sorting,
       columnFilters,
+      globalFilter: debouncedGlobalFilter,
     },
+    // 5. 【新增】定義如何處理全域篩選
+    onGlobalFilterChange: setGlobalFilter, // Input 的變化直接更新 `globalFilter`
+    getFilteredRowModel: getFilteredRowModel(),
   });
 
   const filterColumnId =
@@ -280,6 +290,7 @@ export default function SessionTable({
       : activeTab === "chapter"
       ? "title"
       : "name";
+
   const filterPlaceholder =
     activeTab === "year"
       ? "搜尋考試期數..."
@@ -294,12 +305,8 @@ export default function SessionTable({
 
         <Input
           placeholder={filterPlaceholder}
-          value={
-            (table.getColumn(filterColumnId)?.getFilterValue() as string) ?? ""
-          }
-          onChange={(event) =>
-            table.getColumn(filterColumnId)?.setFilterValue(event.target.value)
-          }
+          value={globalFilter ?? ""} // UI 直接反應使用者的輸入
+          onChange={(event) => setGlobalFilter(event.target.value)} // 每次輸入都更新 `globalFilter` state
           className="max-w-sm"
         />
       </div>
