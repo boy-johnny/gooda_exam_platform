@@ -1,3 +1,9 @@
+"use client";
+
+import * as React from "react";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/hooks/use-auth";
+import { Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -16,18 +22,39 @@ export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const router = useRouter();
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const { isLoading, error, signInWithPassword, signInWithOAuth } = useAuth();
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const { success } = await signInWithPassword({ email, password });
+    if (success) {
+      router.refresh();
+      router.push("/dashboard");
+    }
+  };
+
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <Card>
-        <CardHeader className="text-center">
-          <CardTitle className="text-xl">登入</CardTitle>
-          <CardDescription>使用 Google 帳號登入</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form>
+      <form onSubmit={handleLogin} noValidate>
+        <Card>
+          <CardHeader className="text-center">
+            <CardTitle className="text-xl">登入</CardTitle>
+            <CardDescription>使用 Google 帳號登入</CardDescription>
+          </CardHeader>
+          <CardContent>
             <div className="grid gap-6">
               <div className="flex flex-col gap-4">
-                <Button variant="outline" className="w-full">
+                <Button
+                  type="button"
+                  formNoValidate
+                  variant="outline"
+                  className="w-full"
+                  onClick={() => signInWithOAuth("google")}
+                  disabled={isLoading}
+                >
                   <Image
                     src="/google-logo.svg"
                     alt="Google"
@@ -49,6 +76,8 @@ export function LoginForm({
                     id="email"
                     type="email"
                     placeholder="@example.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     required
                   />
                 </div>
@@ -56,16 +85,23 @@ export function LoginForm({
                   <div className="flex items-center">
                     <Label htmlFor="password">密碼</Label>
                     <Link
-                      href="/login/forgot-password"
+                      href="/forgot-password"
                       className="ml-auto text-xs  underline-offset-4 hover:underline"
                     >
                       忘記你的密碼?
                     </Link>
                   </div>
-                  <Input id="password" type="password" required />
+                  <Input
+                    id="password"
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                  />
                 </div>
-                <Button type="submit" className="w-full">
-                  登入
+                {error && <p className="text-red-500">{error}</p>}
+                <Button type="submit" className="w-full" disabled={isLoading}>
+                  {isLoading ? <Loader2 className="animate-spin" /> : "登入"}
                 </Button>
               </div>
               <div className="text-center text-sm">
@@ -78,14 +114,14 @@ export function LoginForm({
                 </Link>
               </div>
             </div>
-          </form>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
+      </form>
       <div className="text-muted-foreground *:[a]:hover:text-primary text-center text-xs text-balance *:[a]:underline *:[a]:underline-offset-4">
         點擊繼續
         <br />
         即表示您同意我們的 <Link href="#">服務條款</Link> 和{" "}
-        <Link href="#">隱私政策</Link>。
+        <Link href="#">隱私政策</Link>
       </div>
     </div>
   );
