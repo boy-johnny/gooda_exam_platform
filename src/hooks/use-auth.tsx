@@ -18,6 +18,8 @@ export function useAuth() {
   const [error, setError] = React.useState<string | null>(null);
   const supabase = createClient();
 
+
+
   const handleAuth = async (authPromise: Promise<{ error: Error | null }>) => {
     setIsLoading(true);
     setError(null);
