@@ -219,20 +219,20 @@ export default function SessionTable({
 
   // 2. 建立篩選邏輯
   // 使用 useMemo 可以避免不必要的重複計算，提升效能
-  const filteredData = React.useMemo(() => {
-    console.log(`Tab changed to: ${activeTab}`); // 用於偵錯
-    switch (activeTab) {
-      case "subject":
-        // 如果是「科目」，直接回傳原始資料
-        return initialTests;
-      case "year":
-        return [];
-      case "chapter":
-        return initialChapters;
-      default:
-        return [];
-    }
-  }, [activeTab, initialTests, initialChapters]); // 當頁籤或原始資料改變時，才重新計算
+  // const filteredData = React.useMemo(() => {
+  //   console.log(`Tab changed to: ${activeTab}`); // 用於偵錯
+  //   switch (activeTab) {
+  //     case "subject":
+  //       // 如果是「科目」，直接回傳原始資料
+  //       return initialTests;
+  //     case "year":
+  //       return [];
+  //     case "chapter":
+  //       return initialChapters;
+  //     default:
+  //       return [];
+  //   }
+  // }, [activeTab, initialTests, initialChapters]); // 當頁籤或原始資料改變時，才重新計算
 
   // 2. 【核心邏輯】使用 useMemo 來動態轉換資料
   const tableData = React.useMemo(() => {
@@ -284,12 +284,12 @@ export default function SessionTable({
     getFilteredRowModel: getFilteredRowModel(),
   });
 
-  const filterColumnId =
-    activeTab === "year"
-      ? "examName"
-      : activeTab === "chapter"
-      ? "title"
-      : "name";
+  // const filterColumnId =
+  //   activeTab === "year"
+  //     ? "examName"
+  //     : activeTab === "chapter"
+  //     ? "title"
+  //     : "name";
 
   const filterPlaceholder =
     activeTab === "year"
