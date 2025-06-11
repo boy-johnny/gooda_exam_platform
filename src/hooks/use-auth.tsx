@@ -18,15 +18,21 @@ export function useAuth() {
   const [error, setError] = React.useState<string | null>(null);
   const supabase = createClient();
 
-  const handleAuth = async (authPromise: Promise<any>) => {
+
+
+  const handleAuth = async (authPromise: Promise<{ error: Error | null }>) => {
     setIsLoading(true);
     setError(null);
     try {
       const { error } = await authPromise;
       if (error) throw error;
       return { success: true };
-    } catch (error: any) {
-      setError(translateAuthError(error.message));
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setError(translateAuthError(error.message));
+      } else {
+        setError("發生未知錯誤，請聯絡客服或稍後再試。");
+      }
       return { success: false };
     } finally {
       setIsLoading(false);

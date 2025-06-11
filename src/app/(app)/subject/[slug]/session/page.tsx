@@ -1,4 +1,4 @@
-import SessionTable from "@/app/(main)/(exam)/_components/session-table";
+import SessionTable from "@/app/(app)/subject/_components/session-table";
 import { createClient } from "@/lib/supabase/client";
 
 export default async function SessionPage({
