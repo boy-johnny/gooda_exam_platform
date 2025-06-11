@@ -1,4 +1,4 @@
-import { SubjectCard } from "../_components/subject-card";
+import { SubjectCard } from "./_components/subject-card";
 import { createClient } from "@/lib/supabase/server";
 import { cookies } from "next/headers";
 
