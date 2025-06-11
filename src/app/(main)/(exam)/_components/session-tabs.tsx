@@ -1,26 +1,27 @@
-import { Button } from "@/components/ui/button";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Copy } from "lucide-react";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
+// 1. 定義 props 的型別
+interface SessionTabsProps {
+  activeTab: string;
+  onTabChange: (value: string) => void;
+}
+
 const tabs = [
-  {
-    name: "年度",
-    value: "year",
-    content: "年度",
-  },
-  {
-    name: "科目",
-    value: "subject",
-    content: "科目",
-  },
-  {
-    name: "章節",
-    value: "chapter",
-    content: "章節",
-  },
+  { name: "年度", value: "year" },
+  { name: "科目", value: "subject" },
+  { name: "章節", value: "chapter" },
 ];
-export default function SessionTabs() {
+
+export default function SessionTabs({
+  activeTab,
+  onTabChange,
+}: SessionTabsProps) {
   return (
-    <Tabs defaultValue={tabs[0].value} className="max-w-xs w-full">
+    <Tabs
+      value={activeTab}
+      onValueChange={onTabChange}
+      className="w-full max-w-xs"
+    >
       <TabsList>
         {tabs.map((tab) => (
           <TabsTrigger key={tab.value} value={tab.value}>
@@ -28,16 +29,6 @@ export default function SessionTabs() {
           </TabsTrigger>
         ))}
       </TabsList>
-      {/* {tabs.map((tab) => (
-        <TabsContent key={tab.value} value={tab.value}>
-          <div className="h-10 flex items-center justify-between border gap-2 rounded-md pl-3 pr-1.5">
-            <code className="text-[13px]">{tab.content}</code>
-            <Button size="icon" variant="secondary" className="h-7 w-7">
-              <Copy className="!h-3.5 !w-3.5" />
-            </Button>
-          </div>
-        </TabsContent>
-      ))} */}
     </Tabs>
   );
 }
