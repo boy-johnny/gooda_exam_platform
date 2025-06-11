@@ -1,10 +1,10 @@
-import { RegisterForm } from "@/app/(authentication)/_components/register-form";
+import { UpdatePasswordForm } from "@/app/(authentication)/_components/update-password";
 
-export default function RegisterPage() {
+export default function UpdatePasswordPage() {
   return (
     <div className="bg-muted flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
       <div className="flex w-full max-w-sm flex-col gap-6">
-        <RegisterForm />
+        <UpdatePasswordForm />
       </div>
     </div>
   );
