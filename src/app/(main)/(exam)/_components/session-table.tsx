@@ -1,6 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import * as React from "react";
+
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -12,10 +14,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-
 import { ArrowUpDown } from "lucide-react";
-import * as React from "react";
-
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -107,13 +106,36 @@ export const columns: ColumnDef<Test>[] = [
 ];
 
 export default function SessionTable({ initialData }: SessionTableProps) {
+  const [activeTab, setActiveTab] = React.useState("year");
+
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
   );
 
+  // 2. 建立篩選邏輯
+  // 使用 useMemo 可以避免不必要的重複計算，提升效能
+  const filteredData = React.useMemo(() => {
+    console.log(`Tab changed to: ${activeTab}`); // 用於偵錯
+    switch (activeTab) {
+      case "subject":
+        // 如果是「科目」，直接回傳原始資料
+        return initialData;
+      case "year":
+        // TODO: 未來實作「年度」的資料分組邏輯
+        console.log("年度篩選尚未實作");
+        return []; // 暫時回傳空陣列
+      case "chapter":
+        // TODO: 未來實作「章節」的資料篩選邏輯
+        console.log("章節篩選尚未實作");
+        return []; // 暫時回傳空陣列
+      default:
+        return [];
+    }
+  }, [activeTab, initialData]); // 當頁籤或原始資料改變時，才重新計算
+
   const table = useReactTable({
-    data: initialData,
+    data: filteredData,
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
@@ -130,7 +152,7 @@ export default function SessionTable({ initialData }: SessionTableProps) {
   return (
     <div className="w-full">
       <div className="flex justify-between items-center gap-2 py-4">
-        <SessionTabs />
+        <SessionTabs activeTab={activeTab} onTabChange={setActiveTab} />
 
         <Input
           placeholder="搜尋測驗名稱..."
