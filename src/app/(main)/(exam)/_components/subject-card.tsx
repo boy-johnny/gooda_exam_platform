@@ -13,7 +13,7 @@ export const SubjectCard = ({
   return (
     <>
       <Card className="flex flex-col border rounded-xl overflow-hidden shadow-none">
-        <Link href={`/exam/${subjectSlug}/session`} key={subjectSlug}>
+        <Link href={`/subject/${subjectSlug}/session`} key={subjectSlug}>
           <CardHeader>
             <h4 className="!mt-3 text-xl font-semibold tracking-tight">
               {subjectName}
